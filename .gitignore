@@ -18,6 +18,13 @@
 # - Visual Studio specific
 # - OS specific
 
+#########################
+### Lich Custom Build ###
+#########################
+
+builds
+d3d12_packages
+
 ###########################
 ### Build configuration ###
 ###########################
