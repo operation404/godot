@@ -72,6 +72,8 @@ private:
 	friend class SceneState;
 	Node *local_scene = nullptr;
 
+	bool postload_first = true;
+
 	SelfList<Resource> remapped_list;
 
 	void _dupe_sub_resources(Variant &r_variant, Node *p_for_scene, HashMap<Ref<Resource>, Ref<Resource>> &p_remap_cache);
@@ -87,6 +89,8 @@ protected:
 	virtual void reset_local_to_scene();
 	GDVIRTUAL0(_setup_local_to_scene);
 
+	GDVIRTUAL0(_post_load)
+
 public:
 	static Node *(*_get_local_scene_func)(); //used by editor
 	static void (*_update_configuration_warning)(); //used by editor
@@ -96,6 +100,11 @@ public:
 	virtual void reset_state(); //for resources that use variable amount of properties, either via _validate_property or _get_property_list, this function needs to be implemented to correctly clear state
 	virtual Error copy_from(const Ref<Resource> &p_resource);
 	virtual void reload_from_file();
+
+	enum {
+		NOTIFICATION_POSTLOAD = 13, // Same value as Node's Ready
+	};
+	void send_postload();
 
 	void emit_changed();
 	void connect_changed(const Callable &p_callable, uint32_t p_flags = 0);
