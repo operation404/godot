@@ -886,6 +886,8 @@ Error ResourceLoaderBinary::load() {
 			resource->set_as_translation_remapped(translation_remapped);
 			error = OK;
 			return OK;
+		} else {
+			res->send_postload();
 		}
 	}
 
