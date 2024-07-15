@@ -43,6 +43,14 @@ void Resource::emit_changed() {
 	emit_signal(CoreStringName(changed));
 }
 
+void Resource::send_postload() {
+	if (postload_first) {
+		postload_first = false;
+		notification(NOTIFICATION_POSTLOAD);
+		GDVIRTUAL_CALL(_post_load);
+	}
+}
+
 void Resource::_resource_path_changed() {
 }
 
@@ -548,6 +556,9 @@ void Resource::_bind_methods() {
 
 	::ClassDB::add_virtual_method(get_class_static(), get_rid_bind, true, Vector<String>(), true);
 	GDVIRTUAL_BIND(_setup_local_to_scene);
+
+	BIND_CONSTANT(NOTIFICATION_POSTLOAD);
+	GDVIRTUAL_BIND(_post_load);
 }
 
 Resource::Resource() :

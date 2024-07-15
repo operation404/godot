@@ -636,6 +636,7 @@ Error ResourceLoaderText::load() {
 				//it's assignment
 			} else if (!next_tag.name.is_empty()) {
 				error = OK;
+				res->send_postload();
 				break;
 			} else {
 				error = ERR_FILE_CORRUPT;

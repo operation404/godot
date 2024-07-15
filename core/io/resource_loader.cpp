@@ -277,6 +277,7 @@ Ref<Resource> ResourceLoader::_load(const String &p_path, const String &p_origin
 	load_nesting--;
 
 	if (!res.is_null()) {
+		res->send_postload();
 		return res;
 	}
 
