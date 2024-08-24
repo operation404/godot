@@ -52,15 +52,9 @@ namespace Godot
 
         // Explicit name to make it very clear
         internal static StringName CreateTakingOwnershipOfDisposableValue(godot_string_name nativeValueToOwn)
-            => new StringName(nativeValueToOwn);
-
-        // Fixed version?
-        // Not checking `godot_string_name.IsAllocated`, taking ownership over a null ptr
-        // and creating a new empty stringname.
-        // internal static StringName CreateTakingOwnershipOfDisposableValue(godot_string_name nativeValueToOwn)
-        // {
-        //     return nativeValueToOwn.IsAllocated ? new StringName(nativeValueToOwn) : null;
-        // }
+        {
+            return nativeValueToOwn.IsAllocated ? new StringName(nativeValueToOwn) : null;
+        }
 
         /// <summary>
         /// Constructs an empty <see cref="StringName"/>.
